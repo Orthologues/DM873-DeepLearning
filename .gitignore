@@ -6,6 +6,7 @@ Marketplace
 Explore
 
 project1/catdog_data
+*.h5
  
 @Orthologues 
 Lightning-AI
