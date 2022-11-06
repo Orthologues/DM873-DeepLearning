@@ -1,6 +1,6 @@
 keras
 numpy==1.21
-tensorflow
+#tensorflow
 # get that GPU speed!
 # tensorflow-gpu
 pandas
@@ -8,7 +8,7 @@ pandas
 theano
 utils
 scikit-learn
-statsmodel
+#statsmodel
 
 # tools
 jupyterlab
