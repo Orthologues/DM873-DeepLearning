@@ -26,6 +26,6 @@ def create_self_CNN_Model(image_size: tuple, image_channels=3) -> Sequential:
     model.add(MyMaxPool2D())
     model.add(Flatten())
     model.add(Dropout(0.5))
-    model.add(MyDense(units=512))
+    model.add(MyDense(units=512, kernel_regularizer="l2"))
     model.add(MyDense(units=1, activation='sigmoid'))
     return model

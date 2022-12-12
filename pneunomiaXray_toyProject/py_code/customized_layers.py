@@ -118,11 +118,11 @@ class MyDense(tf.keras.layers.Layer):
     (784, 1)
     """
 
-    def __init__(self, kernel_regularizer: str="l2", units:int=1, activation:str='relu', **kwargs):
+    def __init__(self, kernel_regularizer: Optional[str]=None, units:int=1, activation:str='relu', **kwargs):
         # assertions for input params
         assert isinstance(units, int) and units > 0
-        assert isinstance(kernel_regularizer, str)
-        assert kernel_regularizer in {"l1", "l2", "l1l2"}
+        assert isinstance(kernel_regularizer, str) or kernel_regularizer is None
+        assert kernel_regularizer in {"l1", "l2", "l1l2"} or kernel_regularizer is None
         assert isinstance(activation, str) and activation in {"relu", "sigmoid"}
         # name initialization
         super(MyDense, self).__init__(name="MyDense") 

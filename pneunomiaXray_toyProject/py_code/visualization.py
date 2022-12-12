@@ -8,7 +8,6 @@ import json
 from keras.models import load_model
 from numpy import ndarray, array
 from sklearn.metrics import confusion_matrix
-from keras.preprocessing.image import NumpyArrayIterator
 from keras.preprocessing.image import ImageDataGenerator
 import keras.backend as K 
 from pandas import read_csv, DataFrame
@@ -40,7 +39,7 @@ class NN_model_plotter():
     # Plot losses
     def save_loss_fig(self, saving_path: str):
         epochs = range(1, len(self.t_loss)+1)
-        plt.figure(figsize=(16, 9), dpi=120)
+        plt.figure(figsize=(8, 6), dpi=240)
         plt.rcParams['savefig.facecolor']='white'
         plt.plot(epochs, self.t_loss, 'g.', label='training loss')
         plt.plot(epochs, self.v_loss, 'b.', label='validation loss')
@@ -49,12 +48,11 @@ class NN_model_plotter():
         plt.ylabel('Loss')
         plt.legend()
         plt.savefig(saving_path)
-        #plt.show()
 
     # Plot accuracies
     def save_acc_fig(self, saving_path: str):
         epochs = range(1, len(self.t_loss)+1)
-        plt.figure(figsize=(16, 9), dpi=120)
+        plt.figure(figsize=(8, 6), dpi=240)
         plt.rcParams['savefig.facecolor'] = 'white'
         plt.plot(epochs, self.t_acc, 'g.', label='training accuracy')
         plt.plot(epochs, self.v_acc, 'b.', label='validation accuracy')
@@ -63,8 +61,6 @@ class NN_model_plotter():
         plt.ylabel('Loss')
         plt.legend()
         plt.savefig(saving_path)
-        #plt.show()
-
 
     # Plot confusion matrix
     def plot_confusion_matrix(self, saving_path: str):
@@ -73,16 +69,14 @@ class NN_model_plotter():
             'MyMaxPool2D': MyMaxPool2D,
             'MyDense': MyDense
         })
-
-        test_datagen = ImageDataGenerator(rescale=1./255)
         test_imgs, test_labels = read_test_data()
         test_imgs/=255
         test_pred: ndarray[bool] = model.predict(test_imgs, batch_size=32)
         test_pred: ndarray[bool] = (test_pred > 0.5)
         conf_mat = confusion_matrix(test_labels, test_pred)
         # visualizing the confusion matrix
-        df1 = DataFrame(columns=["Pred Negative","Pred Positive"], index= ["Actual Negative","Actual Positive"], data=conf_mat) 
-        f, ax = plt.subplots(figsize=(5, 5))
+        df1 = DataFrame(columns=["Predicted Healthy","Predicted Pneumonia"], index= ["Actual Healthy","Actual Pneumonia"], data=conf_mat) 
+        f, ax = plt.subplots(figsize=(16, 9), dpi=120)
         sns.heatmap(df1, annot=True, cmap="Blues", fmt= '.0f', ax=ax)
         plt.xlabel("Predicted Label")
         plt.xticks(size = 12, rotation=-10)
@@ -94,12 +88,6 @@ class NN_model_plotter():
         print("True Positive:" , (conf_mat[1,1]))
         print("False Positive:" , (conf_mat[0,1]))
         print("False Negative:" , (conf_mat[1,0]))
-
-
-    # Plot incorrectly predicted test images
-    def plot_mislabelled_imgs(self, saving_path: str):
-        print
-
 
 
 def read_test_data(input_path: str = "../") -> Tuple[array]:  
@@ -133,3 +121,5 @@ if __name__ == "__main__":
     K.set_learning_phase(0)
     plotter = NN_model_plotter()
     plotter.plot_confusion_matrix("../conf_mat.png")
+    plotter.save_acc_fig("../acc_90epochs.png")
+    plotter.save_loss_fig("../loss_90epochs.png")

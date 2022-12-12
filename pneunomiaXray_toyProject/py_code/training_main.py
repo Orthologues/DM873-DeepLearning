@@ -152,9 +152,9 @@ if __name__ == "__main__":
             own_model, history = fitted_own_model(own_model, lr, train_iterator, test_iterator)
             for his_key in history.history.keys():
                 training_history[his_key].extend(history.history[his_key])
-            save_model(own_model, Model_Path)
             sliding_avg_10_acc: float = mean(training_history['val_accuracy'][-10:])
-            if sliding_avg_10_acc > 0.9: 
+            if sliding_avg_10_acc > 0.9 and training_history['val_accuracy'][-1] > 0.9:
+                save_model(own_model, Model_Path)
                 stop_training = True   
                 break
 
