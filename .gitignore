@@ -8,14 +8,10 @@ Explore
 */catdog_data
 *.h5
 *.hdf5
-pneunomiaXray_toyProject/__MACOSX/
-pneunomiaXray_toyProject/raw_data/
-pneunomiaXray_toyProject/test_encoded/
-pneunomiaXray_toyProject/train/
- 
-@Orthologues 
+*/__MACOSX/
+*/raw_data/
+  
 Lightning-AI
-/
 deep-learning-project-template
 Public template
 Code
