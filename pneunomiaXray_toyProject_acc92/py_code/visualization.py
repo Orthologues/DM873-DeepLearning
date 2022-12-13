@@ -56,7 +56,7 @@ class NN_model_plotter():
         plt.rcParams['savefig.facecolor'] = 'white'
         plt.plot(epochs, self.t_acc, 'g.', label='training accuracy')
         plt.plot(epochs, self.v_acc, 'b.', label='validation accuracy')
-        plt.title('Training and Validation loss')
+        plt.title('Training and Validation accuracy')
         plt.xlabel('Epochs')
         plt.ylabel('Loss')
         plt.legend()

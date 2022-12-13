@@ -2,6 +2,8 @@ from json import loads
 from matplotlib import pyplot as plt
 import typing
 
+History_Path: str = "../CNN_training_history.json"
+
 # the class for visualization of our training
 class NN_training_history_plotter():
 
@@ -31,7 +33,6 @@ class NN_training_history_plotter():
         plt.ylabel('Loss')
         plt.legend()
         plt.savefig(saving_path)
-        #plt.show()
 
     # Plot accuracies
     def save_acc_fig(self, saving_path: str):
@@ -40,9 +41,14 @@ class NN_training_history_plotter():
         plt.rcParams['savefig.facecolor'] = 'white'
         plt.plot(epochs, self.t_acc, 'g.', label='training accuracy')
         plt.plot(epochs, self.v_acc, 'b.', label='validation accuracy')
-        plt.title('Training and Validation loss')
+        plt.title('Training and Validation accuracy')
         plt.xlabel('Epochs')
         plt.ylabel('Loss')
         plt.legend()
         plt.savefig(saving_path)
-        #plt.show()
+
+
+if __name__ == "__main__":
+    plotter = NN_training_history_plotter(jsonPath=History_Path)
+    plotter.save_loss_fig('../CNN_300epochs_loss.png')
+    plotter.save_acc_fig('../CNN_300epochs_acc.png')

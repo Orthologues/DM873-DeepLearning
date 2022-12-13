@@ -18,8 +18,8 @@ Image_Height=360
 Batch_Size = 32
 Image_Size=(Image_Width,Image_Height)
 Image_Channels=3
-Model_Path: str = "dog_cat_adam_aug_CNN.h5"
-History_Path: str = "CNN_training_history.json"
+Model_Path: str = "../dog_cat_adam_aug_CNN.h5"
+History_Path: str = "../CNN_training_history.json"
 
 def fitted_model(model: keras.models.Sequential, lr: float, train_imgs: keras.preprocessing.image.DirectoryIterator, val_imgs: keras.preprocessing.image.DirectoryIterator) -> typing.Tuple:
     model.compile(optimizer=Adam(learning_rate=lr), loss='binary_crossentropy', metrics=["accuracy"])
@@ -83,10 +83,6 @@ if __name__ == '__main__':
     saved_model = load_model(Model_Path)
     acc = saved_model.evaluate(test_img_flow, verbose=0)[1]
     print(f"Final accuracy on the test dataset after {str(len(training_history['loss']))} epochs: {str(round(acc, 4)*100)}")
-    # Visualization of training/validation loss/accuracy
-    plotter = NN_training_history_plotter(History_Path)
-    plotter.save_loss_fig('./CNN_300epochs_loss.png')
-    plotter.save_acc_fig('./CNN_300epochs_acc.png')
 
 
 
